@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.mpsp.spyros.loluniverse.HeaderFragment">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="135dp"
+        android:layout_height="103dp"
+        android:src="@drawable/lolunilogo"
+        android:layout_gravity="center_horizontal|top" />
+
+</FrameLayout>
