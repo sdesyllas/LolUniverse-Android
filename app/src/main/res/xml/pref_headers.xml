@@ -5,13 +5,13 @@
     <header
         android:fragment="com.mpsp.spyros.loluniverse.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
-
+<!--
     <header
         android:fragment="com.mpsp.spyros.loluniverse.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
 
     <header
         android:fragment="com.mpsp.spyros.loluniverse.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
+        android:title="@string/pref_header_data_sync" />-->
 
 </preference-headers>

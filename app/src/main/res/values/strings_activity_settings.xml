@@ -11,8 +11,22 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_title_display_name">Summoner Name</string>
+    <string name="pref_default_display_name">None</string>
+
+
+    <string name="pref_title_languages">Select Language</string>
+    <string-array name="pref_example_list_languages">
+        <item>English</item>
+        <item>Ελληνικά</item>
+        <item>한국어</item>
+    </string-array>
+    <string-array name="pref_example_list_languages_values">
+        <item>en_US</item>
+        <item>el_GR</item>
+        <item>ko_KR</item>
+    </string-array>
+
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">

@@ -6,36 +6,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.GridView;
 
+import com.mpsp.spyros.loluniverse.adapters.ChampionAdapter;
 
-public class MainActivity extends AppCompatActivity
-        implements HeaderFragment.OnFragmentInteractionListener  {
+public class ChampionListActivity extends AppCompatActivity
+        implements HeaderFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_champion_list);
 
-        final Button button = (Button) findViewById(R.id.champButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ChampionListActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+        GridView gridView = (GridView) findViewById(R.id.championsGridView);
 
-    @Override
-    public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        int[] mThumbIds = new int[0];
+        // Instance of ImageAdapter Class
+        gridView.setAdapter(new ChampionAdapter(this, mThumbIds));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_champion_list, menu);
         return true;
     }
 
@@ -48,8 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //Do something here like in my case launch intent to my new settings menu
-            Intent options1 = new Intent(MainActivity.this, SettingsActivity.class);
+            Intent options1 = new Intent(ChampionListActivity.this, SettingsActivity.class);
             startActivity(options1);
             return true;
         }

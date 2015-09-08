@@ -6,5 +6,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selectHelp">Παλακαλώ επιλέξτε κατηγορία</string>
     <string name="Champions">Μαχητές</string>
+    <string name="RegionStatus">Πληροφορίες Περιοχών</string>
 </resources>

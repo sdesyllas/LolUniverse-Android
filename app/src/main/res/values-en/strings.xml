@@ -6,5 +6,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selectHelp">Please select a category</string>
     <string name="Champions">Champions</string>
+    <string name="RegionStatus">Region Status</string>
 </resources>
