@@ -27,6 +27,30 @@
         <item>ko_KR</item>
     </string-array>
 
+    <string name="pref_title_regions">Select Region</string>
+    <string-array name="pref_example_list_regions">
+        <item>NA</item>
+        <item>EUNE</item>
+        <item>EUW</item>
+        <item>KR</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>OCE</item>
+        <item>TR</item>
+        <item>RU</item>
+    </string-array>
+    <string-array name="pref_example_list_regions_values">
+        <item>NA</item>
+        <item>EUNE</item>
+        <item>EUW</item>
+        <item>KR</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>OCE</item>
+        <item>TR</item>
+        <item>RU</item>
+    </string-array>
+
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">

@@ -1,7 +1,10 @@
 package com.mpsp.spyros.loluniverse;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -16,8 +19,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -31,7 +36,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity  {
 
 
     /**
@@ -69,6 +74,15 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+            String pref_key = preference.getKey();
+            if (pref_key.equals("language_list")) {
+                String lang = stringValue;
+                Configuration config = preference.getContext().getResources().getConfiguration();
+                Locale locale = new Locale(lang);
+                Locale.setDefault(locale);
+                config.locale = locale;
+                preference.getContext().getResources().updateConfiguration(config, preference.getContext().getResources().getDisplayMetrics());
+            }
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -81,7 +95,6 @@ public class SettingsActivity extends PreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-
 
 
             } else if (preference instanceof RingtonePreference) {
@@ -135,6 +148,7 @@ public class SettingsActivity extends PreferenceActivity {
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
     }
+
 
     /**
      * This fragment shows general preferences only. It is used when the

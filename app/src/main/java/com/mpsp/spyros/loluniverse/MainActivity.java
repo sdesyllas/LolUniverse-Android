@@ -1,17 +1,26 @@
 package com.mpsp.spyros.loluniverse;
 
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
-        implements HeaderFragment.OnFragmentInteractionListener  {
+        implements HeaderFragment.OnFragmentInteractionListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +34,16 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        super.onResume();
+
     }
 
     @Override
@@ -60,5 +74,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Toast.makeText(getApplicationContext(), sharedPreferences.getString(key, ""),
+                Toast.LENGTH_SHORT).show();
+        restartActivity();
     }
 }
