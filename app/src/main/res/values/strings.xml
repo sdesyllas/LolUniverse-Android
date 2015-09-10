@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LolUniverse</string>
     <string name="app_description">League of Legends companion app</string>
+    <string name="RiotApiKey">a21afd31-e1aa-4de8-af97-7b6da442820f</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
