@@ -9,66 +9,72 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import constant.Region;
-import dto.Champion.ChampionList;
-import main.java.riotapi.RiotApi;
-import main.java.riotapi.RiotApiException;
-import com.google.gson.*;
-
+import com.mpsp.spyros.loluniverse.Helpers.ExtrasConstants;
 import com.mpsp.spyros.loluniverse.RiotApiTasks.RetrieveChampions;
 import com.mpsp.spyros.loluniverse.adapters.ChampionAdapter;
+import com.mpsp.spyros.loluniverse.model.ChampionApiData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ChampionListActivity extends AppCompatActivity
         implements HeaderFragment.OnFragmentInteractionListener,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_champion_list);
 
-        GridView gridView = (GridView) findViewById(R.id.championsGridView);
-
-        int[] mThumbIds = new int[0];
-        // Instance of ImageAdapter Class
-        gridView.setAdapter(new ChampionAdapter(this, mThumbIds));
-        try {
-            bindChampionList();
-        } catch (RiotApiException e) {
-            e.printStackTrace();
-        }
+        final CheckBox f2pCheckBox = (CheckBox) findViewById(R.id.checkBox);
+        f2pCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                bindChampionList(isChecked);
+            }
+        });
+        bindChampionList(f2pCheckBox.isChecked());
     }
 
-    private void bindChampionList() throws RiotApiException {
-        /*
-        RiotApi api = new RiotApi(getResources().getString(R.string.RiotApiKey));
-
+    private void bindChampionList(boolean f2p) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String server = settings.getString("server_list", "NA");
-        Region region = Region.valueOf(server);
-        api.setRegion(region);
-        ChampionList champions = api.getChampions();
-        Toast.makeText(getApplicationContext(), champions.getChampions().size(),
-                Toast.LENGTH_SHORT).show();
-        */
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        String server = settings.getString("server_list", "NA");
-        AsyncTask<String, Void, ChampionList> execute = new RetrieveChampions().execute(getResources().getString(R.string.RiotApiKey), server);
+        List<ChampionApiData> champions = new ArrayList<>();
         try {
-            ChampionList champions = execute.get();
-            Toast.makeText(getApplicationContext(), champions.getChampions().size(),
-                    Toast.LENGTH_SHORT).show();
+            champions =
+                    new RetrieveChampions(champions).execute(getResources().getString(R.string.RiotApiKey), server, f2p).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
+        String message = String.format("%s Champions found!", champions.size());
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
+
+
+        GridView gridView = (GridView) findViewById(R.id.championsGridView);
+        // Instance of ImageAdapter Class
+        ChampionApiData[] championsArray = new ChampionApiData[champions.size()];
+        gridView.setAdapter(new ChampionAdapter(this, champions.toArray(championsArray)));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                final Intent intent = new Intent(getApplicationContext(), ChampionDetailsActivity.class);
+                intent.putExtra(ExtrasConstants.championId, String.format("%s", id));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -12,4 +12,5 @@
     <string name="RegionStatus">Region Status</string>
     <string name="title_activity_champions">ChampionsActivity</string>
     <string name="title_activity_champion_list">Champions</string>
+    <string name="title_activity_champion_details">ChampionDetailsActivity</string>
 </resources>
