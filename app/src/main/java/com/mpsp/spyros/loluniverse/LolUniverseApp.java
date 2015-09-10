@@ -35,10 +35,11 @@ public class LolUniverseApp extends Application {
         super.onCreate();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = settings.getString("language_list", "en_US");
 
         Configuration config = getBaseContext().getResources().getConfiguration();
 
-        String lang = settings.getString("language_list", "en_US");
+
         if (! "".equals(lang) && ! config.locale.getLanguage().equals(lang))
         {
             locale = new Locale(lang);
