@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.mpsp.spyros.loluniverse.R;
 import com.mpsp.spyros.loluniverse.RiotApiTasks.DownloadImageTask;
 import com.mpsp.spyros.loluniverse.model.ChampionApiData;
+import com.mpsp.spyros.loluniverse.model.ChampionItem;
 
 import java.util.concurrent.ExecutionException;
 
@@ -21,9 +22,9 @@ import java.util.concurrent.ExecutionException;
  */
 public class ChampionAdapter extends BaseAdapter {
     private Context context;
-    private final ChampionApiData[] champions;
+    private final ChampionItem[] champions;
 
-    public ChampionAdapter(Context context, ChampionApiData[] championIds) {
+    public ChampionAdapter(Context context, ChampionItem[] championIds) {
         this.context = context;
         this.champions = championIds;
     }
@@ -46,7 +47,7 @@ public class ChampionAdapter extends BaseAdapter {
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_item_image);
 
-            ChampionApiData champion = champions[position];
+            ChampionItem champion = champions[position];
             //set title
             TextView championTitle = (TextView) gridView.findViewById(R.id.championTitle);
             championTitle.setText(champion.getStaticChampion().getName());
@@ -74,7 +75,7 @@ public class ChampionAdapter extends BaseAdapter {
     }
 
     @Override
-    public ChampionApiData getItem(int position) {
+    public ChampionItem getItem(int position) {
         return champions[position];
     }
 

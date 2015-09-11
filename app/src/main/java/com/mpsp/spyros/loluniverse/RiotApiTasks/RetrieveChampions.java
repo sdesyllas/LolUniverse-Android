@@ -1,15 +1,15 @@
 package com.mpsp.spyros.loluniverse.RiotApiTasks;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.widget.ImageView;
+import android.util.Log;
 
 import com.mpsp.spyros.loluniverse.model.ChampionApiData;
+import com.mpsp.spyros.loluniverse.model.ChampionItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import constant.Region;
 import constant.staticdata.ChampData;
-import dto.Champion.Champion;
 import dto.Champion.ChampionList;
 import main.java.riotapi.RiotApi;
 import main.java.riotapi.RiotApiException;
@@ -17,19 +17,19 @@ import main.java.riotapi.RiotApiException;
 /**
  * Created by Spyros on 9/10/2015.
  */
-public class RetrieveChampions extends AsyncTask<Object, Void, List<ChampionApiData>> {
+public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> {
 
-    List<ChampionApiData> championApiData;
+    ChampionApiData championApiData;
 
-    public RetrieveChampions(List<ChampionApiData> championData) {
+    public RetrieveChampions(ChampionApiData championData) {
         this.championApiData = championData;
     }
 
-    protected void onPostExecute(List<ChampionApiData> result) {
+    protected void onPostExecute(ChampionApiData result) {
         championApiData = result;
     }
 
-    protected List<ChampionApiData> doInBackground(Object... params) {
+    protected ChampionApiData doInBackground(Object... params) {
         RiotApi api = new RiotApi(params[0].toString());
 
         String server = params[1].toString();
@@ -37,12 +37,13 @@ public class RetrieveChampions extends AsyncTask<Object, Void, List<ChampionApiD
         Region region = Region.valueOf(server);
         api.setRegion(region);
         ChampionList champions = null;
-        List<ChampionApiData> championsData = new ArrayList<>();
         dto.Static.ChampionList staticChampions = null;
-
+        championApiData.championItems = new ArrayList<>();
         try {
             champions = api.getChampions(f2p);
+            Log.v("RiotApi", String.format("api.getChampions"));
             staticChampions = api.getDataChampionList("", "", true, ChampData.ALL);
+            Log.v("RiotApi", String.format("api.getDataChampionLis"));
             for (dto.Champion.Champion champion:champions.getChampions()) {
                 /*
                 dto.Static.Champion staticChampion = staticChampions.getData().get(champion.getId());
@@ -53,16 +54,17 @@ public class RetrieveChampions extends AsyncTask<Object, Void, List<ChampionApiD
                 */
                 for (dto.Static.Champion staticChampion:staticChampions.getData().values()) {
                     if(staticChampion.getId() == champion.getId()){
-                        ChampionApiData championApiData = new ChampionApiData();
-                        championApiData.setChampion(champion);
-                        championApiData.setStaticChampion(staticChampion);
-                        championsData.add(championApiData);
+                        ChampionItem championitem = new ChampionItem();
+                        championitem.setChampion(champion);
+                        championitem.setStaticChampion(staticChampion);
+                        championApiData.championItems.add(championitem);
                     }
                 }
             }
         } catch (RiotApiException e) {
             e.printStackTrace();
         }
-        return championsData;
+
+        return championApiData;
     }
 }

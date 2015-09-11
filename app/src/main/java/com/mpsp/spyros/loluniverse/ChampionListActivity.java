@@ -3,7 +3,6 @@ package com.mpsp.spyros.loluniverse;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +15,16 @@ import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.mpsp.spyros.loluniverse.Helpers.ExtrasConstants;
+import com.mpsp.spyros.loluniverse.Helpers.CacheHelper;
 import com.mpsp.spyros.loluniverse.RiotApiTasks.RetrieveChampions;
 import com.mpsp.spyros.loluniverse.adapters.ChampionAdapter;
 import com.mpsp.spyros.loluniverse.model.ChampionApiData;
+import com.mpsp.spyros.loluniverse.model.ChampionItem;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,6 +32,8 @@ import java.util.concurrent.ExecutionException;
 public class ChampionListActivity extends AppCompatActivity
         implements HeaderFragment.OnFragmentInteractionListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private CacheHelper cacheHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,31 +47,53 @@ public class ChampionListActivity extends AppCompatActivity
                 bindChampionList(isChecked);
             }
         });
+        try {
+            cacheHelper = new CacheHelper(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         bindChampionList(f2pCheckBox.isChecked());
     }
 
     private void bindChampionList(boolean f2p) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String server = settings.getString("server_list", "NA");
-        List<ChampionApiData> champions = new ArrayList<>();
+        ChampionApiData championsData = null;
+        //fetch from cache first
+
         try {
-            champions =
-                    new RetrieveChampions(champions).execute(getResources().getString(R.string.RiotApiKey), server, f2p).get();
+           //get from cache
+            String cacheKey = String.format(ExtrasConstants.championsCacheKey, server, f2p);
+            Type myObjectType = new TypeToken<ChampionApiData>(){}.getType();
+
+            championsData = cacheHelper.readObject(cacheKey, myObjectType, ChampionApiData.class);
+            if(championsData==null) {
+                championsData = new ChampionApiData();
+                //didn't found in cache , fetch and store new
+                championsData =
+                        new RetrieveChampions(championsData).execute(getResources().getString(R.string.RiotApiKey), server, f2p).get();
+                cacheHelper.writeObject(cacheKey, championsData);
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
-        String message = String.format("%s Champions found!", champions.size());
+        String message = String.format("%s Champions found!", championsData.getChampionItems().size());
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
 
 
         GridView gridView = (GridView) findViewById(R.id.championsGridView);
         // Instance of ImageAdapter Class
-        ChampionApiData[] championsArray = new ChampionApiData[champions.size()];
-        gridView.setAdapter(new ChampionAdapter(this, champions.toArray(championsArray)));
+        ChampionItem[] championsArray = new ChampionItem[championsData.getChampionItems().size()];
+        gridView.setAdapter(new ChampionAdapter(this, championsData.getChampionItems().toArray(championsArray)));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,

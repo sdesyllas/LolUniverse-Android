@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.github.rithms:riot-api-java:v3.6.1'
+    compile 'com.github.iainconnor:ObjectCache:24885b6a07'
 }

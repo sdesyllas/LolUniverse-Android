@@ -5,4 +5,6 @@ package com.mpsp.spyros.loluniverse.Helpers;
  */
 public class ExtrasConstants {
     public static final String championId = "ChampionId";
+
+    public static String championsCacheKey = "Champions_%s_%s";
 }
