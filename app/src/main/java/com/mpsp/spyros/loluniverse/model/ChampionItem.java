@@ -5,7 +5,7 @@ import dto.Champion.Champion;
 /**
  * Created by Spyros on 9/11/2015.
  */
-public class ChampionItem {
+public class ChampionItem implements java.io.Serializable{
     public ChampionItem(){}
 
     private Champion champion;

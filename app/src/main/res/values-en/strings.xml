@@ -9,4 +9,7 @@
     <string name="selectHelp">Please select a category</string>
     <string name="Champions">Champions</string>
     <string name="RegionStatus">Region Status</string>
+    <string name="title_activity_champions">Champions</string>
+    <string name="title_activity_champion_list">Champions</string>
+    <string name="title_activity_champion_details">Champion Details</string>
 </resources>

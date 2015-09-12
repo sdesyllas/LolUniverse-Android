@@ -8,6 +8,7 @@ import com.mpsp.spyros.loluniverse.model.ChampionItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import constant.Region;
 import constant.staticdata.ChampData;
 import dto.Champion.ChampionList;
@@ -33,7 +34,7 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
         RiotApi api = new RiotApi(params[0].toString());
 
         String server = params[1].toString();
-        boolean f2p = (boolean)params[2];
+        boolean f2p = (boolean) params[2];
         Region region = Region.valueOf(server);
         api.setRegion(region);
         ChampionList champions = null;
@@ -44,22 +45,12 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
             Log.v("RiotApi", String.format("api.getChampions"));
             staticChampions = api.getDataChampionList("", "", true, ChampData.ALL);
             Log.v("RiotApi", String.format("api.getDataChampionLis"));
-            for (dto.Champion.Champion champion:champions.getChampions()) {
-                /*
-                dto.Static.Champion staticChampion = staticChampions.getData().get(champion.getId());
-                ChampionApiData championApiData = new ChampionApiData();
-                championApiData.setChampion(champion);
-                championApiData.setStaticChampion(staticChampion);
-                championsData.add(championApiData);
-                */
-                for (dto.Static.Champion staticChampion:staticChampions.getData().values()) {
-                    if(staticChampion.getId() == champion.getId()){
-                        ChampionItem championitem = new ChampionItem();
-                        championitem.setChampion(champion);
-                        championitem.setStaticChampion(staticChampion);
-                        championApiData.championItems.add(championitem);
-                    }
-                }
+            for (dto.Champion.Champion champion : champions.getChampions()) {
+                dto.Static.Champion staticChampion = staticChampions.getData().get(String.format("%s", champion.getId()));
+                ChampionItem championitem = new ChampionItem();
+                championitem.setChampion(champion);
+                championitem.setStaticChampion(staticChampion);
+                championApiData.championItems.add(championitem);
             }
         } catch (RiotApiException e) {
             e.printStackTrace();

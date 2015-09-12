@@ -61,32 +61,140 @@
 
             <ImageView
                 android:id="@+id/skinImage"
-                android:layout_width="wrap_content"
+                android:minWidth="145dp"
+                android:minHeight="200dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/championThumb"
                 android:layout_marginTop="20dp"
-                android:background="@android:color/holo_red_light" />
+                />
+
+            <ProgressBar
+            android:id="@+id/progressBarDifficulty"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="73dp"
+            android:layout_marginTop="10dp"
+            android:indeterminate="false"
+            android:max="10"
+            android:minHeight="50dp"
+            android:minWidth="100dp"
+            android:progress="0"
+            android:layout_below="@+id/spinner"
+            android:layout_alignLeft="@id/spinner"
+
+            />
+
+            <TextView
+                android:id="@+id/difficulty"
+                android:text="difficulty"
+                android:textColor="@android:color/background_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/progressBarDifficulty"
+                android:layout_below="@+id/progressBarDifficulty"/>
+
+
+
+            <ProgressBar
+                android:id="@+id/progressBarMagic"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="28dp"
+                android:indeterminate="false"
+                android:max="10"
+                android:minHeight="50dp"
+                android:minWidth="100dp"
+                android:progress="0"
+                android:layout_below="@+id/difficulty"
+                android:layout_alignLeft="@id/progressBarDifficulty"
+
+                />
+
+            <TextView
+                android:id="@+id/magic"
+                android:text="magic"
+                android:textColor="@android:color/background_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/progressBarDifficulty"
+                android:layout_below="@+id/progressBarMagic"/>
+
+
+
+            <ProgressBar
+                android:id="@+id/progressBarDefence"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="28dp"
+                android:indeterminate="false"
+                android:max="10"
+                android:minHeight="50dp"
+                android:minWidth="100dp"
+                android:progress="0"
+                android:layout_below="@+id/magic"
+                android:layout_alignLeft="@id/progressBarDifficulty"
+
+                />
+
+            <TextView
+                android:id="@+id/defence"
+                android:text="defence"
+                android:textColor="@android:color/background_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/progressBarDifficulty"
+                android:layout_below="@+id/progressBarDefence"/>
+
+
+
+            <ProgressBar
+                android:id="@+id/progressBarAttack"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="28dp"
+                android:indeterminate="false"
+                android:max="10"
+                android:minHeight="50dp"
+                android:minWidth="100dp"
+                android:progress="0"
+                android:layout_below="@+id/defence"
+                android:layout_alignLeft="@id/progressBarDifficulty"
+
+                />
+
+            <TextView
+                android:id="@+id/attack"
+                android:text="defence"
+                android:textColor="@android:color/background_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/progressBarDifficulty"
+                android:layout_below="@+id/progressBarAttack"/>
+
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/skinImage"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/skinImage"
                 android:text="Lore"
                 android:textColor="@android:color/holo_red_light"
+                android:layout_below="@+id/skinImage"
                 android:textSize="35dp" />
 
             <ScrollView
                 android:id="@+id/scrollViewLore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textView2"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/skinImage">
+                android:layout_below="@+id/textView2"
+                android:layout_marginLeft="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -98,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:text="content"
                         android:textColor="@android:color/white"
-                        android:textSize="18dp" />
+                        android:textSize="11dp" />
                 </RelativeLayout>
             </ScrollView>
 

@@ -9,4 +9,7 @@
     <string name="selectHelp">Παλακαλώ επιλέξτε κατηγορία</string>
     <string name="Champions">Μαχητές</string>
     <string name="RegionStatus">Πληροφορίες Περιοχών</string>
+    <string name="title_activity_champions">Μαχητές</string>
+    <string name="title_activity_champion_list">Μαχητές</string>
+    <string name="title_activity_champion_details">Πληροφορίες Μαχητή</string>
 </resources>

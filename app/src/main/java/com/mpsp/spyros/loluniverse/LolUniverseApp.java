@@ -14,7 +14,7 @@ import java.util.Locale;
 public class LolUniverseApp extends Application {
     private Locale locale = null;
 
-
+    /*
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
@@ -27,7 +27,7 @@ public class LolUniverseApp extends Application {
 
         }
         sendBroadcast(new Intent("Language.changed"));
-    }
+    }*/
 
     @Override
     public void onCreate()

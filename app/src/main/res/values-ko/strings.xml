@@ -9,4 +9,7 @@
     <string name="selectHelp">카테고리를 선택하세요</string>
     <string name="Champions">챔피언스</string>
     <string name="RegionStatus">지역 현황</string>
+    <string name="title_activity_champions">챔피언스</string>
+    <string name="title_activity_champion_list">챔피언스</string>
+    <string name="title_activity_champion_details">챔피언스</string>
 </resources>

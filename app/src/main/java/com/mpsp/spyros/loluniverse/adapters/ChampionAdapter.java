@@ -3,10 +3,12 @@ package com.mpsp.spyros.loluniverse.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.mpsp.spyros.loluniverse.R;
 import com.mpsp.spyros.loluniverse.RiotApiTasks.DownloadImageTask;
 import com.mpsp.spyros.loluniverse.model.ChampionApiData;
 import com.mpsp.spyros.loluniverse.model.ChampionItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.ExecutionException;
 
@@ -34,37 +37,29 @@ public class ChampionAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View gridView;
+        View gridView = convertView;
 
         if (convertView == null) {
-
-            gridView = new View(context);
-
-            // get layout from mobile.xml
+            ChampionItem champ = champions[position];
+            // get layout from champion_item.xml
             gridView = inflater.inflate(R.layout.champion_item, null);
-
-            // set image based on selected text
-            ImageView imageView = (ImageView) gridView
-                    .findViewById(R.id.grid_item_image);
-
-            ChampionItem champion = champions[position];
-            //set title
-            TextView championTitle = (TextView) gridView.findViewById(R.id.championTitle);
-            championTitle.setText(champion.getStaticChampion().getName());
-
-            String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
-                    champion.getStaticChampion().getImage().getFull());
-            try {
-                Bitmap bitmap = new DownloadImageTask(imageView).execute(championImageUrl).get();
-                imageView.setImageBitmap(bitmap);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        } else {
-            gridView = (View) convertView;
+            //gridView.setLayoutParams(new GridView.LayoutParams(70, 100));
+            gridView.setTag((Object) champ.getChampion().getId());
         }
+
+        ChampionItem champion = champions[position];
+        // set image based on selected text
+        ImageView imageView = (ImageView) gridView
+                .findViewById(R.id.grid_item_image);
+        //set title
+        TextView championTitle = (TextView) gridView.findViewById(R.id.championTitle);
+        championTitle.setText(champion.getStaticChampion().getName());
+
+        String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
+                champion.getStaticChampion().getImage().getFull());
+        Picasso.with(context).load(championImageUrl).into(imageView);
+        Log.v("ChampionAdapter", String.format("Champion:%s Position:%s",
+                champion.getStaticChampion().getName(), position));
 
         return gridView;
     }

@@ -17,21 +17,21 @@
         tools:layout="@layout/fragment_header" />
 
     <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:id="@+id/championsGridView"
         android:background="#96000000"
-        android:numColumns="auto_fit"
+        android:numColumns="3"
         android:columnWidth="90dp"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
         android:gravity="center"
-        android:stretchMode="columnWidth"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/header"
         android:layout_alignEnd="@+id/header"
-        android:layout_below="@+id/header" />
+        android:layout_below="@+id/header"
+        />
 
     <CheckBox
         android:layout_width="wrap_content"
