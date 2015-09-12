@@ -6,3 +6,4 @@ as a native Android application.
 * [RIOT-API-JAVA](https://github.com/rithms/riot-api-java) by Taylor Caldwell
 * [ObjectCache](https://github.com/iainconnor/ObjectCache) by Iain Connor
 * [google-gson] (https://github.com/google/gson) by Jake Wharton
+* [Picasso] (http://square.github.io/picasso/) by Jake Wharton
