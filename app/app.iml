@@ -96,7 +96,7 @@
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="ObjectCache-24885b6a07" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="riot-api-java-v3.6.1" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
   </component>
 </module>

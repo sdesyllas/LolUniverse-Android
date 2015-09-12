@@ -99,7 +99,7 @@ public class ChampionListActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 final Intent intent = new Intent(getApplicationContext(), ChampionDetailsActivity.class);
-                intent.putExtra(ExtrasConstants.championId, String.format("%s", id));
+                intent.putExtra(ExtrasConstants.championId, (int)id);
                 startActivity(intent);
             }
         });

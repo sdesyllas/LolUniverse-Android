@@ -2,27 +2,125 @@ package com.mpsp.spyros.loluniverse;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+import com.mpsp.spyros.loluniverse.Helpers.CacheHelper;
 import com.mpsp.spyros.loluniverse.Helpers.ExtrasConstants;
+import com.mpsp.spyros.loluniverse.RiotApiTasks.DownloadImageTask;
+import com.mpsp.spyros.loluniverse.RiotApiTasks.RetrieveChampion;
+import com.mpsp.spyros.loluniverse.RiotApiTasks.RetrieveChampions;
+import com.mpsp.spyros.loluniverse.model.ChampionApiData;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.concurrent.ExecutionException;
 
 public class ChampionDetailsActivity extends AppCompatActivity
         implements HeaderFragment.OnFragmentInteractionListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private CacheHelper cacheHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_champion_details);
 
-        TextView test = (TextView) findViewById(R.id.test);
-        test.setText(getIntent().getStringExtra(ExtrasConstants.championId));
+        try {
+            cacheHelper = new CacheHelper(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dto.Static.Champion champion = getChampion();
+        if(champion!=null){
+            TextView championName = (TextView) findViewById(R.id.champion);
+            championName.setText(champion.getName());
+
+            //set image thumb
+            ImageView championThumb = (ImageView) findViewById(R.id.championThumb);
+            String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
+                    champion.getImage().getFull());
+            try {
+                Bitmap bitmap = new DownloadImageTask(championThumb).execute(championImageUrl).get();
+                championThumb.setImageBitmap(bitmap);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //set skin art
+            //set image thumb
+            ImageView skinImage = (ImageView) findViewById(R.id.skinImage);
+            String skinImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/%s_%s.jpg",
+                    champion.getKey(), champion.getSkins().get(0).getNum());
+            try {
+                Bitmap bitmap = new DownloadImageTask(skinImage).execute(skinImageUrl).get();
+                skinImage.setImageBitmap(bitmap);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //set lore
+            TextView lore = (TextView) findViewById(R.id.loreContent);
+            lore.setText(Html.fromHtml(champion.getLore()));
+
+        }
+        else{
+            String message = String.format("Champion not found!");
+            Toast.makeText(getApplicationContext(), message,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private dto.Static.Champion getChampion(){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String server = settings.getString("server_list", "NA");
+        int championId = getIntent().getIntExtra(ExtrasConstants.championId, 0);
+        String cacheKey = String.format(ExtrasConstants.championCacheKey, server, championId);
+        Type myObjectType = new TypeToken<dto.Static.Champion>(){}.getType();
+        dto.Static.Champion champion = null;
+        try {
+            champion = cacheHelper.readObject(cacheKey, myObjectType, dto.Static.Champion.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        if(champion==null) {
+            champion = new dto.Static.Champion();
+            //didn't found in cache , fetch and store new
+            try {
+                champion =
+                        new RetrieveChampion().execute(getResources().getString(R.string.RiotApiKey), server, championId).get();
+                cacheHelper.writeObject(cacheKey, champion);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return champion;
     }
 
     @Override

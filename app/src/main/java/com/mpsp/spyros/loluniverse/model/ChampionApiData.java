@@ -8,7 +8,7 @@ import dto.Champion.Champion;
 /**
  * Created by Spyros on 9/10/2015.
  */
-public class ChampionApiData{
+public class ChampionApiData implements java.io.Serializable{
     public ChampionApiData() {
         this.championItems = new ArrayList<>();
     }
