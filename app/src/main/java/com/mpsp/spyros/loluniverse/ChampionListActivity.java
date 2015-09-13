@@ -90,7 +90,8 @@ public class ChampionListActivity extends AppCompatActivity
         GridView gridView = (GridView) findViewById(R.id.championsGridView);
         // Instance of ImageAdapter Class
         ChampionItem[] championsArray = new ChampionItem[championsData.getChampionItems().size()];
-        gridView.setAdapter(new ChampionAdapter(this, championsData.getChampionItems().toArray(championsArray)));
+        gridView.setAdapter(new ChampionAdapter(this, championsData.getChampionItems().toArray(championsArray),
+                championsData.latestDragonVersion));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,

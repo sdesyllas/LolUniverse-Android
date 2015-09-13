@@ -19,10 +19,12 @@ import com.squareup.picasso.Picasso;
 public class ChampionAdapter extends BaseAdapter {
     private Context context;
     private final ChampionItem[] champions;
+    private String version;
 
-    public ChampionAdapter(Context context, ChampionItem[] championIds) {
+    public ChampionAdapter(Context context, ChampionItem[] championIds, String version) {
         this.context = context;
         this.champions = championIds;
+        this.version = version;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -48,7 +50,8 @@ public class ChampionAdapter extends BaseAdapter {
         TextView championTitle = (TextView) gridView.findViewById(R.id.championTitle);
         championTitle.setText(champion.getStaticChampion().getName());
 
-        String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
+        String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/%s/img/champion/%s",
+                version,
                 champion.getStaticChampion().getImage().getFull());
         Picasso.with(context).load(championImageUrl).into(imageView);
         return gridView;

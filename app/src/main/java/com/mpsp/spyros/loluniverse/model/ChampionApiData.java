@@ -17,6 +17,8 @@ public class ChampionApiData implements java.io.Serializable{
     public List<ChampionItem> getChampionItems() {
         return championItems;
     }
+
+    public String latestDragonVersion;
 }
 
 

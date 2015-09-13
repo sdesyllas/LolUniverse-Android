@@ -41,6 +41,14 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
         ChampionList champions = null;
         dto.Static.ChampionList staticChampions = null;
         championApiData.championItems = new ArrayList<>();
+
+        List<String> dataVersions = new ArrayList<>();
+        try {
+            dataVersions = api.getDataVersions(region);
+        } catch (RiotApiException e) {
+            e.printStackTrace();
+        }
+        championApiData.latestDragonVersion = dataVersions.get(0);
         try {
             champions = api.getChampions(f2p);
             Log.v("RiotApi", String.format("api.getChampions"));
@@ -56,6 +64,7 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
         } catch (RiotApiException e) {
             e.printStackTrace();
         }
+
 
         return championApiData;
     }
