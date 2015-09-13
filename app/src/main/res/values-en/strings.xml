@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="selectHelp">Please select a category</string>
     <string name="Champions">Champions</string>
-    <string name="RegionStatus">Region Status</string>
+    <string name="RegionStatus">Recommended Region</string>
     <string name="title_activity_champions">Champions</string>
     <string name="title_activity_champion_list">Champions</string>
     <string name="title_activity_champion_details">Champion Details</string>
@@ -20,4 +20,6 @@
     <string name="enemyTipsTitle">Enemy tips</string>
     <string name="allyTipsTitle">Ally tips</string>
     <string name="skinsTitle">skins</string>
+    <string name="title_activity_region_status">Region Status</string>
+    <string name="waitGps">Please wait while we are searching for optimal region based on your device GPS</string>
 </resources>

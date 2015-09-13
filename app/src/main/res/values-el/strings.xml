@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="selectHelp">Παλακαλώ επιλέξτε κατηγορία</string>
     <string name="Champions">Μαχητες</string>
-    <string name="RegionStatus">Πληροφορίες Περιοχών</string>
+    <string name="RegionStatus">Προτεινόμενη Περιοχή</string>
     <string name="title_activity_champions">Μαχητές</string>
     <string name="title_activity_champion_list">Μαχητες</string>
     <string name="title_activity_champion_details">Πληροφορίες Μαχητή</string>
@@ -20,4 +20,6 @@
     <string name="enemyTipsTitle">Συμβουλές αντιπάλων</string>
     <string name="allyTipsTitle">Συμβουλές συμμάχων</string>
     <string name="skinsTitle">στολές</string>
+    <string name="title_activity_region_status">Πληροφορίες Περιοχών</string>
+    <string name="waitGps">Παρακαλώ περιμένετε, ψάχνουμε την ιδανική περιοχή σύμφωνα με το GPS της συσκευή σας</string>
 </resources>

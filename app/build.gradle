@@ -27,4 +27,5 @@ dependencies {
     compile 'com.github.rithms:riot-api-java:v3.6.1'
     compile 'com.github.iainconnor:ObjectCache:24885b6a07'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.opencsv:opencsv:3.5'
 }

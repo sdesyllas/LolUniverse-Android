@@ -4,38 +4,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.mpsp.spyros.loluniverse.ChampionListActivity"
+    tools:context="com.mpsp.spyros.loluniverse.RegionStatusActivity"
     android:background="@drawable/morgana_vs_ahri_3">
 
-    <CheckBox
+
+
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="F2P"
-        android:id="@+id/checkBox"
-        android:layout_alignBottom="@+id/header"
+        android:id="@+id/regionListView"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="true"
         android:background="#96000000"
-        android:textColor="@android:color/primary_text_dark_nodisable"/>
-
-    <GridView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/championsGridView"
-        android:background="#96000000"
-        android:numColumns="3"
-        android:columnWidth="90dp"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-        android:gravity="center"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/header"
-        android:layout_alignEnd="@+id/header"
-        android:layout_below="@+id/checkBox"
         />
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/waitGps"
+        android:id="@+id/waitForGps"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/primary_text_dark"/>
 </RelativeLayout>

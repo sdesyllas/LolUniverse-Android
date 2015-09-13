@@ -6,4 +6,5 @@
     android:gravity="left"
     android:padding="5dip"
     android:textColor="#FF0000"
-    android:textSize="18dp" />
+    android:textSize="18dp"
+    />

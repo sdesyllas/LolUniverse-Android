@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        final Button shardButton = (Button) findViewById(R.id.serversButton);
+        shardButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegionStatusActivity.class);
+                startActivity(intent);
+            }
+        });
+
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);

@@ -8,4 +8,5 @@ public class ExtrasConstants {
 
     public static String championsCacheKey = "Champions_%s_%s_%s";
     public static String championCacheKey = "Champions_%s_%s_%s";
+    public static String shardsCacheKey = "Shards";
 }

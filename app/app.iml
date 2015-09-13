@@ -94,10 +94,12 @@
     <orderEntry type="library" exported="" name="disklrucache-2.0.2" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
+    <orderEntry type="library" exported="" name="commons-lang3-3.3.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="ObjectCache-24885b6a07" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="riot-api-java-v3.6.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="opencsv-3.5" level="project" />
+    <orderEntry type="library" exported="" name="riot-api-java-v3.6.1" level="project" />
   </component>
 </module>
