@@ -26,19 +26,28 @@ public final class CacheHelper {
         cacheManager = CacheManager.getInstance(diskCache);
     }
 
-    public void writeObject(String key, Object object) throws IOException {
-        cacheManager.put(key, object, CacheManager.ExpiryTimes.ONE_HOUR.asSeconds(), false);
-        Log.v("CacheManager", String.format("Stored %s", key));
+    public void writeObject(String key, Object object){
+        try {
+            cacheManager.put(key, object, CacheManager.ExpiryTimes.ONE_HOUR.asSeconds(), false);
+            Log.v("CacheManager", String.format("Stored %s", key));
+        }
+        catch (Exception e){
+            Log.e("CacheManager", e.getMessage());
+        }
     }
 
-    public <T> T readObject(String key, Type type, Class objectClass) throws IOException,
-            ClassNotFoundException {
-        Object myObject = cacheManager.get(key, objectClass, type);
-        if ( myObject != null ) {
-            Log.v("CacheManager", String.format("Fetched %s", key));
-            return (T)myObject;
+    public <T> T readObject(String key, Type type, Class objectClass) {
+        try {
+            Object myObject = cacheManager.get(key, objectClass, type);
+            if (myObject != null) {
+                Log.v("CacheManager", String.format("Fetched %s", key));
+                return (T) myObject;
+            } else {
+                return null;
+            }
         }
-        else{
+        catch (Exception e){
+            Log.e("CacheManager", e.getMessage());
             return null;
         }
     }

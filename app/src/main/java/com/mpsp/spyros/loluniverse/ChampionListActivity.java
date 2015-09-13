@@ -62,28 +62,24 @@ public class ChampionListActivity extends AppCompatActivity
         ChampionApiData championsData = null;
         //fetch from cache first
 
-        try {
-           //get from cache
-            String cacheKey = String.format(ExtrasConstants.championsCacheKey, server, locale, f2p);
-            Type myObjectType = new TypeToken<ChampionApiData>(){}.getType();
+        //get from cache
+        String cacheKey = String.format(ExtrasConstants.championsCacheKey, server, locale, f2p);
+        Type myObjectType = new TypeToken<ChampionApiData>() {
+        }.getType();
 
-            championsData = cacheHelper.readObject(cacheKey, myObjectType, ChampionApiData.class);
-            if(championsData==null) {
-                championsData = new ChampionApiData();
-                //didn't found in cache , fetch and store new
+        championsData = cacheHelper.readObject(cacheKey, myObjectType, ChampionApiData.class);
+        if (championsData == null) {
+            championsData = new ChampionApiData();
+            //didn't found in cache , fetch and store new
+            try {
                 championsData =
                         new RetrieveChampions(championsData).execute(getResources().getString(R.string.RiotApiKey), server, locale, f2p).get();
-                cacheHelper.writeObject(cacheKey, championsData);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            cacheHelper.writeObject(cacheKey, championsData);
         }
 
         String message = String.format("%s Champions found!", championsData.getChampionItems().size());
@@ -100,7 +96,7 @@ public class ChampionListActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 final Intent intent = new Intent(getApplicationContext(), ChampionDetailsActivity.class);
-                intent.putExtra(ExtrasConstants.championId, (int)id);
+                intent.putExtra(ExtrasConstants.championId, (int) id);
                 startActivity(intent);
             }
         });

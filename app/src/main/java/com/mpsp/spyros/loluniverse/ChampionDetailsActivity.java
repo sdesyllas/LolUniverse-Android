@@ -166,7 +166,7 @@ public class ChampionDetailsActivity extends AppCompatActivity
         //set background splash art
         String splashArtUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/%s_%s.jpg",
                 champion.getKey(), skin);
-        changeBackground(splashArtUrl);
+        //changeBackground(splashArtUrl);
     }
 
     private void setSpinner(final dto.Static.Champion champion) {
@@ -204,14 +204,7 @@ public class ChampionDetailsActivity extends AppCompatActivity
         Type myObjectType = new TypeToken<dto.Static.Champion>() {
         }.getType();
         dto.Static.Champion champion = null;
-        try {
-            champion = cacheHelper.readObject(cacheKey, myObjectType, dto.Static.Champion.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        champion = cacheHelper.readObject(cacheKey, myObjectType, dto.Static.Champion.class);
 
         if (champion == null) {
             champion = new dto.Static.Champion();
@@ -219,14 +212,12 @@ public class ChampionDetailsActivity extends AppCompatActivity
             try {
                 champion =
                         new RetrieveChampion().execute(getResources().getString(R.string.RiotApiKey), server, locale, championId).get();
-                cacheHelper.writeObject(cacheKey, champion);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            cacheHelper.writeObject(cacheKey, champion);
         }
         return champion;
     }
