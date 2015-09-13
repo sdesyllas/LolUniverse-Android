@@ -1,5 +1,5 @@
 # LolUniverse-Android
-<a href="http://www.droidbin.com/p19v3942blsoa1d4q1lehvfb15ud3" target="_blank"><img src="http://www.cloudadhost.com/download-apk2.png"/></a>
+<a href="http://www.droidbin.com/p19v3avel48gl193h15ve12c1119q3" target="_blank"><img src="http://www.cloudadhost.com/download-apk2.png"/></a>
 
 This is the sister app of [LolUniverse web application](https://github.com/sdesyllas/LoLUniverse) written
 as a native Android application.
