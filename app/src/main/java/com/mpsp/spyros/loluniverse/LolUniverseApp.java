@@ -19,14 +19,15 @@ public class LolUniverseApp extends Application {
     public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
+
         if (locale != null)
         {
             newConfig.locale = locale;
-            Locale.setDefault(locale);
+            //Locale.setDefault(locale);
             getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
 
         }
-        sendBroadcast(new Intent("Language.changed"));
+        //sendBroadcast(new Intent("Language.changed"));
     }*/
 
     @Override

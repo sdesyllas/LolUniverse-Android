@@ -18,12 +18,13 @@ public class RetrieveChampion extends AsyncTask<Object, Void, dto.Static.Champio
         RiotApi api = new RiotApi(params[0].toString());
 
         String server = params[1].toString();
-        int championId = (int)params[2];
+        String locale = params[2].toString();
+        int championId = (int)params[3];
         Region region = Region.valueOf(server);
         api.setRegion(region);
 
         try {
-            Champion champion = api.getDataChampion(region, championId, "", "", true, ChampData.ALL);
+            Champion champion = api.getDataChampion(region, championId, locale, "", true, ChampData.ALL);
             return champion;
         } catch (RiotApiException e) {
             e.printStackTrace();

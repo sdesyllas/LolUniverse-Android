@@ -34,7 +34,8 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
         RiotApi api = new RiotApi(params[0].toString());
 
         String server = params[1].toString();
-        boolean f2p = (boolean) params[2];
+        String locale = params[2].toString();
+        boolean f2p = (boolean) params[3];
         Region region = Region.valueOf(server);
         api.setRegion(region);
         ChampionList champions = null;
@@ -43,7 +44,7 @@ public class RetrieveChampions extends AsyncTask<Object, Void, ChampionApiData> 
         try {
             champions = api.getChampions(f2p);
             Log.v("RiotApi", String.format("api.getChampions"));
-            staticChampions = api.getDataChampionList("", "", true, ChampData.ALL);
+            staticChampions = api.getDataChampionList(locale, "", true, ChampData.ALL);
             Log.v("RiotApi", String.format("api.getDataChampionLis"));
             for (dto.Champion.Champion champion : champions.getChampions()) {
                 dto.Static.Champion staticChampion = staticChampions.getData().get(String.format("%s", champion.getId()));

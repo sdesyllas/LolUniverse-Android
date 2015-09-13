@@ -27,7 +27,7 @@ public final class CacheHelper {
     }
 
     public void writeObject(String key, Object object) throws IOException {
-        cacheManager.put(key, object, CacheManager.ExpiryTimes.ONE_HOUR.asSeconds(), true);
+        cacheManager.put(key, object, CacheManager.ExpiryTimes.ONE_HOUR.asSeconds(), false);
         Log.v("CacheManager", String.format("Stored %s", key));
     }
 

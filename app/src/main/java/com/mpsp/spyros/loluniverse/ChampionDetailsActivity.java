@@ -1,12 +1,17 @@
 package com.mpsp.spyros.loluniverse;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +28,7 @@ import com.mpsp.spyros.loluniverse.Helpers.CacheHelper;
 import com.mpsp.spyros.loluniverse.Helpers.ExtrasConstants;
 import com.mpsp.spyros.loluniverse.RiotApiTasks.RetrieveChampion;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -42,7 +48,8 @@ public class ChampionDetailsActivity extends AppCompatActivity
     private ProgressBar magicBar;
     private ProgressBar defenceBar;
     private ProgressBar attackBar;
-
+    private TextView enemyTips;
+    private TextView allyTips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +68,24 @@ public class ChampionDetailsActivity extends AppCompatActivity
             championName.setText(champion.getName());
 
             //set image thumb
+            /*
             ImageView championThumb = (ImageView) findViewById(R.id.championThumb);
             String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
                     champion.getImage().getFull());
-            Picasso.with(getApplicationContext()).load(championImageUrl).into(championThumb);
+            Picasso.with(getApplicationContext()).load(championImageUrl).into(championThumb);*/
 
             //set skin art
-            //set image thumb
             skinImage = (ImageView) findViewById(R.id.skinImage);
 
             String skinImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/%s_%s.jpg",
                     champion.getKey(), champion.getSkins().get(0).getNum());
 
             Picasso.with(getApplicationContext()).load(skinImageUrl).into(skinImage);
+
+            //set background splash art
+            String splashArtUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/%s_%s.jpg",
+                    champion.getKey(), champion.getSkins().get(0).getNum());
+            changeBackground(splashArtUrl);
 
             //set lore
             TextView lore = (TextView) findViewById(R.id.loreContent);
@@ -94,6 +106,26 @@ public class ChampionDetailsActivity extends AppCompatActivity
             attackBar = (ProgressBar) findViewById(R.id.progressBarAttack);
             attackBar.setProgress(champion.getInfo().getAttack());
 
+            //enemy tips
+            enemyTips = (TextView) findViewById(R.id.enemyTipsValue);
+            String htmlEnemyTips = "<ul>";
+            for (String enemyTip : champion.getEnemytips()
+                    ) {
+                htmlEnemyTips += String.format("<li>%s", enemyTip);
+            }
+            htmlEnemyTips += "</ul>";
+            enemyTips.setText(Html.fromHtml(htmlEnemyTips));
+
+            allyTips = (TextView) findViewById(R.id.allyTipsValue);
+            //ally tips
+            String htmlAllyTips = "<ul>";
+            for (String allyTip : champion.getAllytips()
+                    ) {
+                htmlAllyTips += String.format("<li>%s", allyTip);
+            }
+            htmlAllyTips += "</ul>";
+            allyTips.setText(Html.fromHtml(htmlAllyTips));
+
         } else {
             String message = String.format("Champion not found!");
             Toast.makeText(getApplicationContext(), message,
@@ -102,11 +134,39 @@ public class ChampionDetailsActivity extends AppCompatActivity
 
     }
 
+    private void changeBackground(String splashArtUrl) {
+        Picasso.with(getApplicationContext()).load(splashArtUrl).into(new Target() {
+
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                // TODO Auto-generated method stub
+                View championDetails = findViewById(R.id.championDetails);
+                //championDetails.setBackgroundDrawable(new BitmapDrawable(bitmap));
+                championDetails.setBackground(new BitmapDrawable(getResources(), bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+    }
+
     private void changeSkin(dto.Static.Champion champion, int skin) {
         String skinImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/%s_%s.jpg",
                 champion.getKey(), skin);
 
         Picasso.with(getApplicationContext()).load(skinImageUrl).into(skinImage);
+
+        //set background splash art
+        String splashArtUrl = String.format("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/%s_%s.jpg",
+                champion.getKey(), skin);
+        changeBackground(splashArtUrl);
     }
 
     private void setSpinner(final dto.Static.Champion champion) {
@@ -138,8 +198,9 @@ public class ChampionDetailsActivity extends AppCompatActivity
     private dto.Static.Champion getChampion() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String server = settings.getString("server_list", "NA");
+        String locale = settings.getString("language_list", "en_US");
         int championId = getIntent().getIntExtra(ExtrasConstants.championId, 0);
-        String cacheKey = String.format(ExtrasConstants.championCacheKey, server, championId);
+        String cacheKey = String.format(ExtrasConstants.championCacheKey, server, locale, championId);
         Type myObjectType = new TypeToken<dto.Static.Champion>() {
         }.getType();
         dto.Static.Champion champion = null;
@@ -157,7 +218,7 @@ public class ChampionDetailsActivity extends AppCompatActivity
             //didn't found in cache , fetch and store new
             try {
                 champion =
-                        new RetrieveChampion().execute(getResources().getString(R.string.RiotApiKey), server, championId).get();
+                        new RetrieveChampion().execute(getResources().getString(R.string.RiotApiKey), server, locale, championId).get();
                 cacheHelper.writeObject(cacheKey, champion);
             } catch (InterruptedException e) {
                 e.printStackTrace();

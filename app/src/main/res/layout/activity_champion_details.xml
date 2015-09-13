@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.mpsp.spyros.loluniverse.ChampionDetailsActivity">
+    tools:context="com.mpsp.spyros.loluniverse.ChampionDetailsActivity"
+    android:background="@drawable/morgana_vs_ahri_3"
+    android:id="@+id/championDetails">
 
 
     <ScrollView
@@ -15,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="#96000000">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,23 +32,24 @@
                 android:textSize="50dp" />
 
             <ImageView
-                android:id="@+id/championThumb"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/skinImage"
+                android:layout_width="160dp"
+                android:layout_height="350dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
                 android:layout_below="@+id/champion"
-                android:background="@android:color/holo_red_light" />
+                />
 
             <TextView
                 android:id="@+id/skins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/championThumb"
+                android:layout_alignTop="@+id/skinImage"
                 android:layout_marginLeft="15dp"
-                android:layout_toEndOf="@+id/championThumb"
-                android:layout_toRightOf="@+id/championThumb"
-                android:text="skins"
+                android:layout_toEndOf="@+id/skinImage"
+                android:layout_toRightOf="@+id/skinImage"
+                android:text="@string/skinsTitle"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="30dp" />
 
@@ -56,27 +59,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/skins"
                 android:layout_marginLeft="15dp"
-                android:layout_toEndOf="@+id/championThumb"
-                android:layout_toRightOf="@+id/championThumb" />
+                android:layout_toEndOf="@+id/skinImage"
+                android:layout_toRightOf="@+id/skinImage" />
 
-            <ImageView
-                android:id="@+id/skinImage"
-                android:minWidth="145dp"
-                android:minHeight="200dp"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/championThumb"
-                android:layout_marginTop="20dp"
-                />
 
             <ProgressBar
             android:id="@+id/progressBarDifficulty"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="73dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:indeterminate="false"
             android:max="10"
@@ -90,7 +83,7 @@
 
             <TextView
                 android:id="@+id/difficulty"
-                android:text="difficulty"
+                android:text="@string/difficultyTitle"
                 android:textColor="@android:color/background_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,6 +98,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="20dp"
                 android:layout_marginTop="28dp"
+                android:layout_marginRight="15dp"
                 android:indeterminate="false"
                 android:max="10"
                 android:minHeight="50dp"
@@ -117,7 +111,7 @@
 
             <TextView
                 android:id="@+id/magic"
-                android:text="magic"
+                android:text="@string/magicTitle"
                 android:textColor="@android:color/background_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,6 +127,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="28dp"
                 android:indeterminate="false"
+                android:layout_marginRight="15dp"
                 android:max="10"
                 android:minHeight="50dp"
                 android:minWidth="100dp"
@@ -144,7 +139,7 @@
 
             <TextView
                 android:id="@+id/defence"
-                android:text="defence"
+                android:text="@string/defenceTitle"
                 android:textColor="@android:color/background_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,6 +154,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="20dp"
                 android:layout_marginTop="28dp"
+                android:layout_marginRight="15dp"
                 android:indeterminate="false"
                 android:max="10"
                 android:minHeight="50dp"
@@ -171,23 +167,63 @@
 
             <TextView
                 android:id="@+id/attack"
-                android:text="defence"
+                android:text="@string/attackTitle"
                 android:textColor="@android:color/background_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/progressBarDifficulty"
                 android:layout_below="@+id/progressBarAttack"/>
 
+            <TextView
+                android:id="@+id/enemyTipsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/enemyTipsTitle"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_below="@+id/skinImage"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/enemyTipsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@android:color/background_light"
+                android:layout_below="@+id/enemyTipsTitle"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/allyTipsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/allyTipsTitle"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_below="@+id/enemyTipsValue"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/allyTipsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@android:color/background_light"
+                android:layout_below="@+id/allyTipsTitle"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="Lore"
+                android:text="@string/loreTitle"
                 android:textColor="@android:color/holo_red_light"
-                android:layout_below="@+id/skinImage"
+                android:layout_below="@+id/allyTipsValue"
                 android:textSize="35dp" />
+
 
             <ScrollView
                 android:id="@+id/scrollViewLore"
@@ -206,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:text="content"
                         android:textColor="@android:color/white"
-                        android:textSize="11dp" />
+                        android:textSize="15dp" />
                 </RelativeLayout>
             </ScrollView>
 

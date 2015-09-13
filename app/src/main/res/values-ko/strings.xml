@@ -12,4 +12,12 @@
     <string name="title_activity_champions">챔피언스</string>
     <string name="title_activity_champion_list">챔피언스</string>
     <string name="title_activity_champion_details">챔피언스</string>
+    <string name="difficultyTitle">어려움</string>
+    <string name="magicTitle">마법</string>
+    <string name="defenceTitle">방어</string>
+    <string name="attackTitle">공격</string>
+    <string name="loreTitle">과학적 학문</string>
+    <string name="enemyTipsTitle">적 팁</string>
+    <string name="allyTipsTitle">앨리 팁</string>
+    <string name="skinsTitle">스킨</string>
 </resources>

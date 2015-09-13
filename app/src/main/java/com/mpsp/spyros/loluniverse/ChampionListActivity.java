@@ -58,12 +58,13 @@ public class ChampionListActivity extends AppCompatActivity
     private void bindChampionList(boolean f2p) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String server = settings.getString("server_list", "NA");
+        String locale = settings.getString("language_list", "en_US");
         ChampionApiData championsData = null;
         //fetch from cache first
 
         try {
            //get from cache
-            String cacheKey = String.format(ExtrasConstants.championsCacheKey, server, f2p);
+            String cacheKey = String.format(ExtrasConstants.championsCacheKey, server, locale, f2p);
             Type myObjectType = new TypeToken<ChampionApiData>(){}.getType();
 
             championsData = cacheHelper.readObject(cacheKey, myObjectType, ChampionApiData.class);
@@ -71,7 +72,7 @@ public class ChampionListActivity extends AppCompatActivity
                 championsData = new ChampionApiData();
                 //didn't found in cache , fetch and store new
                 championsData =
-                        new RetrieveChampions(championsData).execute(getResources().getString(R.string.RiotApiKey), server, f2p).get();
+                        new RetrieveChampions(championsData).execute(getResources().getString(R.string.RiotApiKey), server, locale, f2p).get();
                 cacheHelper.writeObject(cacheKey, championsData);
             }
 

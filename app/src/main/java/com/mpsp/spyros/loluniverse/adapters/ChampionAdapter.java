@@ -1,24 +1,17 @@
 package com.mpsp.spyros.loluniverse.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mpsp.spyros.loluniverse.R;
-import com.mpsp.spyros.loluniverse.RiotApiTasks.DownloadImageTask;
-import com.mpsp.spyros.loluniverse.model.ChampionApiData;
 import com.mpsp.spyros.loluniverse.model.ChampionItem;
 import com.squareup.picasso.Picasso;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Spyros on 9/8/2015.
@@ -58,9 +51,6 @@ public class ChampionAdapter extends BaseAdapter {
         String championImageUrl = String.format("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/%s",
                 champion.getStaticChampion().getImage().getFull());
         Picasso.with(context).load(championImageUrl).into(imageView);
-        Log.v("ChampionAdapter", String.format("Champion:%s Position:%s",
-                champion.getStaticChampion().getName(), position));
-
         return gridView;
     }
 

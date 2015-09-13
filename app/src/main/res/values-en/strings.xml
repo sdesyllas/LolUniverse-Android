@@ -12,4 +12,12 @@
     <string name="title_activity_champions">Champions</string>
     <string name="title_activity_champion_list">Champions</string>
     <string name="title_activity_champion_details">Champion Details</string>
+    <string name="difficultyTitle">difficulty</string>
+    <string name="magicTitle">magic</string>
+    <string name="defenceTitle">defence</string>
+    <string name="attackTitle">attack</string>
+    <string name="loreTitle">Role</string>
+    <string name="enemyTipsTitle">Enemy tips</string>
+    <string name="allyTipsTitle">Ally tips</string>
+    <string name="skinsTitle">skins</string>
 </resources>
