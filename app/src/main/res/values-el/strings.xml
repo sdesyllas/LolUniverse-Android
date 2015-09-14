@@ -22,4 +22,5 @@
     <string name="skinsTitle">στολές</string>
     <string name="title_activity_region_status">Πληροφορίες Περιοχών</string>
     <string name="waitGps">Παρακαλώ περιμένετε, ψάχνουμε την ιδανική περιοχή σύμφωνα με το GPS της συσκευή σας</string>
+    <string name="recommendedRegion">προτεινόμενο για %s</string>
 </resources>

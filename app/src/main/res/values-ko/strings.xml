@@ -22,4 +22,5 @@
     <string name="skinsTitle">스킨</string>
     <string name="title_activity_region_status">지역 현황</string>
     <string name="waitGps">우리는 당신의 장치 GPS 를 기반으로 최적의 지역 검색하는 동안 잠시 기다려주십시오</string>
+    <string name="recommendedRegion">권장 %s</string>
 </resources>

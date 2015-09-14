@@ -62,7 +62,6 @@
                 android:layout_toEndOf="@+id/skinImage"
                 android:layout_toRightOf="@+id/skinImage" />
 
-
             <ProgressBar
             android:id="@+id/progressBarDifficulty"
             style="?android:attr/progressBarStyleHorizontal"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class RegionStatusActivity extends AppCompatActivity implements LocationListener {
+public class RegionStatusActivity extends AppCompatActivity{
 
     private CacheHelper cacheHelper;
     private Location currentLocation;
@@ -61,19 +62,21 @@ public class RegionStatusActivity extends AppCompatActivity implements LocationL
         waitForGps = (TextView) findViewById(R.id.waitForGps);
         getCountriesAndContinents();
         SetupLocation();
+        SetupShardList();
     }
 
     private void SetupLocation() {
         locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        //locationManager.requestLocationUpdates(provider, 150, 10000, this);
 
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 150, 10000, this);
+        this.currentLocation = locationManager.getLastKnownLocation(provider);
     }
 
     protected void onDestroy() {
         super.onDestroy();
-        locationManager.removeUpdates(this);
     }
 
     @Override
@@ -148,9 +151,7 @@ public class RegionStatusActivity extends AppCompatActivity implements LocationL
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        this.currentLocation = location;
+    private void SetupShardList(){
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = null;
         try {
@@ -164,21 +165,7 @@ public class RegionStatusActivity extends AppCompatActivity implements LocationL
         Toast.makeText(getApplicationContext(), continent, Toast.LENGTH_LONG).show();
         ShardModelList shardModelList = getShardModelList();
         waitForGps.setVisibility(View.GONE);
-        setUpListView(shardModelList, continent, addresses.get(0).getCountryName());
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
+        String city = String.format("%s, %s", addresses.get(0).getCountryName(), addresses.get(0).getAddressLine(0));
+        setUpListView(shardModelList, continent, city);
     }
 }

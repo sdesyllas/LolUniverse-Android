@@ -63,7 +63,7 @@ public class ShardAdapter extends BaseAdapter {
         //fill recommended region
         TextView recommendedText = (TextView) view.findViewById(R.id.recommendedText);
         if(continent.equals(shard.getShard().getSlug().toUpperCase())) {
-            recommendedText.setText(String.format("recommended (%s)", city));
+            recommendedText.setText(String.format(context.getResources().getString(R.string.recommendedRegion), city));
         }
         else{
             recommendedText.setText("");

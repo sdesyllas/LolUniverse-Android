@@ -3,8 +3,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left"
+    android:gravity="center_vertical"
     android:padding="5dip"
-    android:textColor="#FF0000"
-    android:textSize="18dp"
+    android:textColor="@android:color/holo_blue_light"
+    android:textSize="22dp"
+    android:background="@drawable/abc_spinner_mtrl_am_alpha"
     />
