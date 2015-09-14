@@ -1,11 +1,13 @@
 package com.mpsp.spyros.loluniverse.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mpsp.spyros.loluniverse.R;
@@ -61,12 +63,14 @@ public class ShardAdapter extends BaseAdapter {
         }
 
         //fill recommended region
+        View shardItemHolder = view.findViewById(R.id.shardItemHolder);
         TextView recommendedText = (TextView) view.findViewById(R.id.recommendedText);
-        if(continent.equals(shard.getShard().getSlug().toUpperCase())) {
+        if (continent.equals(shard.getShard().getSlug().toUpperCase())) {
             recommendedText.setText(String.format(context.getResources().getString(R.string.recommendedRegion), city));
-        }
-        else{
+            shardItemHolder.setBackgroundColor(Color.parseColor("#006400"));
+        } else {
             recommendedText.setText("");
+            shardItemHolder.setBackgroundColor(0);
         }
 
         return view;

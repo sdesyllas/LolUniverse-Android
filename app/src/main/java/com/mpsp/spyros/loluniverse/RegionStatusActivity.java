@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class RegionStatusActivity extends AppCompatActivity{
+public class RegionStatusActivity extends AppCompatActivity {
 
     private CacheHelper cacheHelper;
     private Location currentLocation;
@@ -151,21 +151,26 @@ public class RegionStatusActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void SetupShardList(){
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void SetupShardList() {
+        String countryCode = "";
+        String continent = "";
+        String city = "";
+        if (this.currentLocation != null) {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            countryCode = addresses.get(0).getCountryCode();
+            continent = GetContinentFromCountry(countryCode);
+            city = String.format("%s, %s", addresses.get(0).getCountryName(), addresses.get(0).getAddressLine(0));
+            Toast.makeText(getApplicationContext(), continent, Toast.LENGTH_LONG).show();
         }
-        String countryCode = addresses.get(0).getCountryCode();
-        String continent = GetContinentFromCountry(countryCode);
 
-        Toast.makeText(getApplicationContext(), continent, Toast.LENGTH_LONG).show();
         ShardModelList shardModelList = getShardModelList();
         waitForGps.setVisibility(View.GONE);
-        String city = String.format("%s, %s", addresses.get(0).getCountryName(), addresses.get(0).getAddressLine(0));
         setUpListView(shardModelList, continent, city);
     }
 }
