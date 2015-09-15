@@ -20,7 +20,8 @@
     <string name="enemyTipsTitle">Enemy tips</string>
     <string name="allyTipsTitle">Ally tips</string>
     <string name="skinsTitle">skins</string>
-    <string name="title_activity_region_status">Region Status</string>
+    <string name="title_activity_region_status">Recommended Region</string>
     <string name="waitGps">Please wait while we are searching for optimal region based on your device GPS</string>
     <string name="recommendedRegion">recommended for %s</string>
+    <string name="findUsOnGithub">Find us on GitHub!</string>
 </resources>

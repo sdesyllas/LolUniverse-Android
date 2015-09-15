@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
-    android:background="@drawable/morgana_vs_ahri_3">
+    android:background="@drawable/morgana_vs_ahri_3"
+    android:id="@+id/mainLayout">
 
 
     <fragment
@@ -18,21 +19,13 @@
         android:layout_weight="1"
         tools:layout="@layout/fragment_header" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/selectHelp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:background="#96000000"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/header"
-        android:layout_centerHorizontal="true" />
+
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/textView">
+        android:layout_below="@+id/header"
+        android:id="@+id/scrollParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,15 +33,23 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_centerVertical="true">
 
             <Button
                 android:id="@+id/champButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="22dp"
-                android:text="@string/Champions" />
+                android:layout_marginTop="15dp"
+                android:text="@string/Champions"
+                android:background="@drawable/lolbuttonshape"
+                android:shadowColor="#53A812"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/serversButton"
@@ -58,7 +59,22 @@
                 android:layout_alignStart="@+id/champButton"
                 android:layout_below="@+id/champButton"
                 android:layout_marginTop="10dp"
-                android:text="@string/RegionStatus" />
+                android:text="@string/RegionStatus"
+                android:background="@drawable/lolbuttonshape"
+                android:shadowColor="#53A812"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="20dp"/>
+
         </RelativeLayout>
     </ScrollView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/findUsOnGithub"
+        android:textColor="@android:color/background_light"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/githubTextView"/>
 </RelativeLayout>
