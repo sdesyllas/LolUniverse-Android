@@ -2,6 +2,7 @@ package com.mpsp.spyros.loluniverse;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.location.Address;
@@ -42,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class RegionStatusActivity extends AppCompatActivity {
+public class RegionStatusActivity extends AppCompatActivity implements LocationListener {
 
     private CacheHelper cacheHelper;
     private Location currentLocation;
@@ -62,7 +63,6 @@ public class RegionStatusActivity extends AppCompatActivity {
         waitForGps = (TextView) findViewById(R.id.waitForGps);
         getCountriesAndContinents();
         SetupLocation();
-        SetupShardList();
     }
 
     private void SetupLocation() {
@@ -70,12 +70,11 @@ public class RegionStatusActivity extends AppCompatActivity {
                 getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
-        //locationManager.requestLocationUpdates(provider, 150, 10000, this);
-
-        this.currentLocation = locationManager.getLastKnownLocation(provider);
+        locationManager.requestLocationUpdates(provider, 500, 1000, this);
     }
 
     protected void onDestroy() {
+        locationManager.removeUpdates(this);
         super.onDestroy();
     }
 
@@ -145,6 +144,9 @@ public class RegionStatusActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Do something here like in my case launch intent to my new settings menu
+            Intent options1 = new Intent(RegionStatusActivity.this, SettingsActivity.class);
+            startActivity(options1);
             return true;
         }
 
@@ -172,5 +174,26 @@ public class RegionStatusActivity extends AppCompatActivity {
         ShardModelList shardModelList = getShardModelList();
         waitForGps.setVisibility(View.GONE);
         setUpListView(shardModelList, continent, city);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.currentLocation = location;
+        SetupShardList();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

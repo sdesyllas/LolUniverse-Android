@@ -238,6 +238,9 @@ public class ChampionDetailsActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Do something here like in my case launch intent to my new settings menu
+            Intent options1 = new Intent(ChampionDetailsActivity.this, SettingsActivity.class);
+            startActivity(options1);
             return true;
         }
 
