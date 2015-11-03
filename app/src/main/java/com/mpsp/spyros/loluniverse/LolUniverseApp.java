@@ -43,7 +43,8 @@ public class LolUniverseApp extends Application {
 
         if (! "".equals(lang) && ! config.locale.getLanguage().equals(lang))
         {
-            locale = new Locale(lang);
+            Locale locale = new Locale(lang.split("_")[0] , lang.split("_")[1]);
+            //locale = new Locale(lang);
             Locale.setDefault(locale);
             config.locale = locale;
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
