@@ -13,3 +13,7 @@ as a native Android application.
 * [ObjectCache](https://github.com/iainconnor/ObjectCache) by Iain Connor
 * [google-gson] (https://github.com/google/gson) by Jake Wharton
 * [Picasso] (http://square.github.io/picasso/) by Jake Wharton
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sdesyllas/loluniverse-android/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
