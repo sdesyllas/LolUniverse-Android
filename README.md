@@ -1,5 +1,5 @@
 # LolUniverse-Android
-<a href="https://www.dropbox.com/s/q78xiot6z0bnxwl/loluniverse.apk?dl=0" target="_blank"><img src="http://www.cloudadhost.com/download-apk2.png"/></a>
+<a href="https://www.dropbox.com/s/q78xiot6z0bnxwl/loluniverse.apk?dl=0" target="_blank"><img src="https://4.bp.blogspot.com/-AzUafZMorQ4/VxuknaYtyKI/AAAAAAAABrc/vL5YahrDHWAa9P2NW8c681qvD-H3-p-AgCKgB/s1600/download-apk-1.png"/></a>
 
 This is the sister app of [LolUniverse web application](https://github.com/sdesyllas/LoLUniverse) written
 as a native Android application.
